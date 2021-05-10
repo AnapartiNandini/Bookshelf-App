@@ -1,24 +1,87 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import Book from './Book';
+import Header from './Header';
+import Search from './Search';
+import { Switch, Route } from 'react-router-dom';
 
-function App() {
+const App = () => {
+  const [books, setBooks] = useState([]);
+  const [currentlyReading, setCurrentlyReading] = useState([]);
+  const [wantToRead, setWantToRead] = useState([]);
+  const [read, setRead] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetch(`http://localhost:5000/books`);
+      const books = await response.json();
+      setBooks({ books });
+      console.log(books);
+    }
+    fetchData();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Switch>
+        <Route exact path="/">
+          <div class="list-books-content">
+            <div>
+              <div class="bookshelf">
+                <h2 class="bookshelf-title">Currently Reading</h2>
+                <div class="bookshelf-books">
+                  <ol class="books-grid">
+                    {currentlyReading.map(book => (
+                      <Book
+                        book={book}
+                        image={book.imageLinks.thumbnail}
+                        title={book.title}
+                        title={book.authors}
+                        key={book.id}
+                      />
+                    ))}
+                  </ol>
+                </div>
+              </div>
+              <div class="bookshelf">
+                <h2 class="bookshelf-title">Want To Read</h2>
+                <div class="bookshelf-books">
+                  <ol class="books-grid">
+                    {wantToRead.map(book => (
+                      <Book
+                        book={book}
+                        image={book.imageLinks.thumbnail}
+                        title={book.title}
+                        title={book.authors}
+                        key={book.id}
+                      />
+                    ))}
+                  </ol>
+                </div>
+              </div>
+              <div class="bookshelf">
+                <h2 class="bookshelf-title">Read</h2>
+                <div class="bookshelf-books">
+                  <ol class="books-grid">
+                    {read.map(book => (
+                      <Book
+                        book={book}
+                        image={book.imageLinks.thumbnail}
+                        title={book.title}
+                        title={book.authors}
+                        key={book.id}
+                      />
+                    ))}
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Route>
+        <Route exact path="/books/new">
+        </Route>
+      </Switch>
+      <Header />
+    </>
   );
 }
 
