@@ -1,15 +1,17 @@
 import React, { useState } from "react";
+import Book from './Book';
+import { Link } from 'react-router-dom';
 
-const Search = (props) => {
+const Search = ({books}) => {
   const [input, setInput] = useState("");
-  const [books, setBooks] = useState([]);
+  const [filteredBooks, setFilteredBooks] = useState([]);
 
   const filterBooks = (e) => {
-    e.persist();
-    setInput({ input: e.target.value });
-    if (props.books.length > 0) {
-      const result = props.books.filter(book => book.title.includes(e.target.value));
-      setBooks({ books: result });
+    setInput(e.target.value);
+
+    if (books.length > 0) {
+      const result = books.filter(book => book.title.toLowerCase().includes(e.target.value.toLowerCase()));
+      setFilteredBooks({ filteredBooks: result });
     }
   }
 
@@ -17,16 +19,16 @@ const Search = (props) => {
     <div className="app">
       <div className="search-books">
         <div className="search-books-bar">
-          <a className="close-search" href="index.html">Close</a>
+          <Link to="/" className="close-search">Close</Link>
           <div className="search-books-input-wrapper">
             <input type="text"
-              placeholder="Search by title or author" value="drama" />
+              placeholder="Search by title or author" value={input} onChange={filterBooks}/>
           </div>
         </div>
         <div className="search-books-results">
-          <div className="results-quantity">Your search returned 10 results.</div>
+          <div className="results-quantity">Your search returned {filteredBooks.length} results.</div>
           <ol className="books-grid">
-            {books.map(book => (
+            {filteredBooks.map(book => (
               <Book
                 book={book}
                 image={book.imageLinks.thumbnail}
@@ -41,5 +43,6 @@ const Search = (props) => {
     </div>
   )
 }
+
 
 export default Search;
