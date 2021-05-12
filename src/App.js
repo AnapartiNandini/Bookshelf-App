@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Book from './Book';
 import Footer from './Footer';
-// import Search from './Search';
+import Search from './Search';
 import { Switch, Route, Link } from 'react-router-dom';
 
 const App = () => {
@@ -336,7 +336,7 @@ const App = () => {
           </div>
         </Route>
         <Route exact path="/books/new">
-          {/* <Search addToShelf={addToShelf} /> */}
+          <Search addToShelf={addToShelf} books={books}/>
         </Route>
       </Switch>
     </div>
