@@ -49,8 +49,10 @@ const App = () => {
                           book={book}
                           image={book.imageLinks.thumbnail}
                           title={book.title}
-                          title={book.authors}
+                          author={book.authors}
                           key={book.id}
+                          shelf={book.shelf}
+                          addToShelf={addToShelf}
                         />
                       ))}
                     </ol>
@@ -65,8 +67,10 @@ const App = () => {
                           book={book}
                           image={book.imageLinks.thumbnail}
                           title={book.title}
-                          title={book.authors}
+                          author={book.authors}
                           key={book.id}
+                          shelf={book.shelf}
+                          addToShelf={addToShelf}
                         />
                       ))}
                     </ol>
@@ -78,11 +82,13 @@ const App = () => {
                     <ol className="books-grid">
                       {read.map(book => (
                         <Book
+                          book={book}
                           image={book.imageLinks.thumbnail}
                           title={book.title}
-                          title={book.authors}
-                          value={book.shelf}
+                          author={book.authors}
                           key={book.id}
+                          shelf={book.shelf}
+                          addToShelf={addToShelf}
                         />
                       ))}
                     </ol>
@@ -94,7 +100,7 @@ const App = () => {
           </div>
         </Route>
         <Route exact path="/books/new">
-          <Search addToShelf={addToShelf} books={books}/>
+          <Search books={books} />
         </Route>
       </Switch>
     </div>
