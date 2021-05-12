@@ -12,7 +12,7 @@ class Book extends React.Component {
               {{
                 width: "128px",
                 height: "193px",
-                backgroundImage: `url(${this.props.image === "null" || "N/A" || undefined ? "no-book-cover.png" : this.props.image}}`
+                backgroundImage: `url(${this.props.image === "null" || "N/A" || undefined ? "no-book-cover.png" : this.props.image})`
               }}> 
                 </div>
             <div class="book-shelf-changer">
