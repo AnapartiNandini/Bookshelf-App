@@ -19,7 +19,7 @@ const Search = ({books}) => {
     <div className="app">
       <div className="search-books">
         <div className="search-books-bar">
-          <Link to="/" className="close-search">Close</Link>
+          <Link className="close-search"  to="/">Close</Link>
           <div className="search-books-input-wrapper">
             <input type="text"
               placeholder="Search by title or author" value={input} onChange={filterBooks}/>
